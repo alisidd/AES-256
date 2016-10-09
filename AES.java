@@ -192,13 +192,21 @@ public class AES {
         File key_file = new File(args[1]);
         File input_file = new File(args[2]);
 
-        if option == "d" {
+        if (option.equals("d")) {
 
         }
 
-        if option == "e" {
+        if (option.equals("e")) {
 
         }
+
+        int[][] newArray = {
+          {1,2,3,4},
+          {1,2,3,4},
+          {1,2,3,4},
+          {1,2,3,4}
+        }
+        System.out.println(shiftRows(newArray));
 
   }
 }
