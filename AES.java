@@ -57,7 +57,7 @@ public class AES {
     return null;
   }
 
-  public static byte[][] addRoundKey(byte[][] state, byte[] w, int roundNumber) {
+  public static byte[][] addRoundKey(byte[][] state, byte[] roundKey, int roundNumber) {
     return null;
   }
 
