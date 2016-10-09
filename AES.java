@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
 
 public class AES {
 
@@ -115,7 +117,9 @@ public class AES {
   }
 
   public static byte[][] subBytes(byte[][] state) {
-    return null;
+    for(int i=0; i< state.length; i++) {
+
+    }
   }
 
   public static int[] rotate(int[] hexState) {
@@ -135,28 +139,51 @@ public class AES {
   }
 
   public static void main(String[] args) {
-<<<<<<< HEAD
 
+
+        String[] state_array = new String[1000];
+        
         String option = args[0];
         File key_file = new File(args[1]);
         File input_file = new File(args[2]);
 
-        if option == "d" {
-
+        if (option == "d") {
+            //decrypt
         }
 
-        if option == "e" {
+        if (option == "e") {
+            //encrypt
+        }
+
+        BufferedReader r = new BufferedReader(new FileReader(args[2]));
+        String line = new String();
+        
+        try {
+            line = r.readLine();
+        catch(IOexception e) {
+            System.out.println("No file");
+        }
+        
+        while (line!= null) {
             
+            for(int i=0; i<line.length(); i+=2) {
+                int bin_num = Integer.parseInt(line.substring(i, i+2), 16);
+                String s = Integer.toBinaryString(bin_num);
+                state_array[i] = s;
+            }
         }
+
+
+
     
 
 
-=======
+
     int[] hexState = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
     hexState = rotate(hexState);
     for (int i = 0; i < hexState.length; i++) {
       System.out.println(hexState[i]);
     }
->>>>>>> b7f1bd5b3e1df24142251ded64c8c82acb8abf62
+
   }
 }
