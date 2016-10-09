@@ -205,7 +205,7 @@ public class AES {
           {1,2,3,4},
           {1,2,3,4},
           {1,2,3,4}
-        }
+        };
         System.out.println(shiftRows(newArray));
 
   }
