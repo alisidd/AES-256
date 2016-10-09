@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileReader;
-import java.io.BufferedReader;
+import java.io.*;
 
 public class AES {
 
@@ -139,9 +137,9 @@ public class AES {
     int[][] tmp = new int[state.length][state.length];
 
     tmp[0][0] = (mul2[state[0][0]] ^ mul3[state[0][1]] ^ state[0][2] ^ state[0][3]);
-    tmp[1][0] = (state[1][0] ^ mul2[state[1][1]] ^ mul3[state[1][2]] ^ state[1][3]);
-    tmp[2][0] = (state[2][0] ^ state[2][1] ^ mul2[state[2][2]] ^ mul3[state[2][3]]);
-    tmp[3][0] = (mul3[state[3][0]] ^ state[3][1] ^ state[3][2] ^ mul2[state[3][3]]);
+    tmp[1][0] = (state[0][0] ^ mul2[state[0][1]] ^ mul3[state[0][2]] ^ state[0][3]);
+    tmp[2][0] = (state[0][0] ^ state[0][1] ^ mul2[state[0][2]] ^ mul3[state[0][3]]);
+    tmp[3][0] = (mul3[state[0][0]] ^ state[0][1] ^ state[0][2] ^ mul2[state[0][3]]);
 
     tmp[0][1] = (mul2[state[0][1]] ^ mul3[state[1][1]] ^ state[2][1] ^ state[3][1]);
     tmp[1][1] = (state[0][1] ^ mul2[state[1][1]] ^ mul3[state[2][1]] ^ state[3][1]);
@@ -157,16 +155,12 @@ public class AES {
     tmp[1][3] = (state[0][3] ^ mul2[state[1][3]] ^ mul3[state[2][3]] ^ state[3][3]);
     tmp[2][3] = (state[0][3] ^ state[1][3] ^ mul2[state[2][3]] ^ mul3[state[3][3]]);
     tmp[3][3] = (mul3[state[0][3]] ^ state[1][3] ^ state[2][3] ^ mul2[state[3][3]]);
+
+    return tmp;
   }
 
-<<<<<<< HEAD
-  public static byte[][] subBytes(byte[][] state) {
-    for(int i=0; i< state.length; i++) {
-
-    }
-=======
   public static int[][] subBytes(int[][] state) {
-    for (int i = 0; i < state.length; i++) {
+  /*  for (int i = 0; i < state.length; i++) {
       for (int j = 0; j < state[i].length; j++) {
         int leastSignificantNibble = state[i][j] >> 8;
         int mostSignificantNibble = state[i][j] << 8;
@@ -174,9 +168,8 @@ public class AES {
         System.out.println("most: " + mostSignificantNibble);
         state[i][j] = sbox[mostSignificantNibble][leastSignificantNibble];
       }
-    }
-    return state;
->>>>>>> a795999d0ab2657cc4c7cbd315e96e427d072047
+    }*/
+    return null;
   }
 
   public static int[] rotate(int[] state) {
@@ -197,70 +190,38 @@ public class AES {
 
   public static void main(String[] args) {
 
+    String[] state_array = new String[1000];
 
-        String[] state_array = new String[1000];
-        
-        String option = args[0];
-        File key_file = new File(args[1]);
-        File input_file = new File(args[2]);
-
-<<<<<<< HEAD
-        if (option == "d") {
-            //decrypt
-        }
-=======
-        if (option.equals("d")) {
->>>>>>> a795999d0ab2657cc4c7cbd315e96e427d072047
-
-        if (option == "e") {
-            //encrypt
-        }
-
-<<<<<<< HEAD
-        BufferedReader r = new BufferedReader(new FileReader(args[2]));
-        String line = new String();
-        
-        try {
-            line = r.readLine();
-        catch(IOexception e) {
-            System.out.println("No file");
-        }
-        
-        while (line!= null) {
-            
-            for(int i=0; i<line.length(); i+=2) {
-                int bin_num = Integer.parseInt(line.substring(i, i+2), 16);
-                String s = Integer.toBinaryString(bin_num);
-                state_array[i] = s;
-            }
-        }
+    String option = args[0];
+    File key_file = new File(args[1]);
+    File input_file = new File(args[2]);
 
 
 
-    
-=======
-        if (option.equals("e")) {
+    if (option.equals("d")) {
 
-        }
->>>>>>> a795999d0ab2657cc4c7cbd315e96e427d072047
-
-        int[][] newArray = {
-          {1,2,3,4},
-          {1,2,3,4},
-          {1,2,3,4},
-          {1,2,3,4}
-        };
-        System.out.println(shiftRows(newArray));
-
-<<<<<<< HEAD
-
-    int[] hexState = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
-    hexState = rotate(hexState);
-    for (int i = 0; i < hexState.length; i++) {
-      System.out.println(hexState[i]);
+    }
+    if (option.equals("e")) {
+        //encrypt
     }
 
-=======
->>>>>>> a795999d0ab2657cc4c7cbd315e96e427d072047
+    try {
+
+      BufferedReader r = new BufferedReader(new FileReader(args[2]));
+      String line = new String();
+      line = r.readLine();
+      while (line!= null) {
+
+          for(int i=0; i<line.length(); i+=2) {
+              int bin_num = Integer.parseInt(line.substring(i, i+2), 16);
+              String s = Integer.toBinaryString(bin_num);
+              state_array[i] = s;
+          }
+      }
+
+    } catch (IOException e) {
+      System.out.println("No file");
+    }
+
   }
 }
