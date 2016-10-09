@@ -102,40 +102,91 @@ public class AES {
     return b;
   }
 
-  public static byte[][] addRoundKey(byte[][] state, byte[][] roundKey, int roundNumber) {
+  public static int[][] addRoundKey(int[][] state, int[][] roundKey, int roundNumber) {
     return null;
   }
 
-  public static byte[][] shiftRows(byte[][] state) {
-    return null;
+  public static int[][] shiftRows(int[][] state)
+  {
+    int[][] tmp = new int[state.length][state.length];
+
+    tmp[0][0] = state[0][0];
+    tmp[0][1] = state[0][1];
+    tmp[0][2] = state[0][2];
+    tmp[0][3] = state[0][3];
+
+    tmp[1][0] = state[1][1];
+    tmp[1][1] = state[1][2];
+    tmp[1][2] = state[1][3];
+    tmp[1][3] = state[1][0];
+
+    tmp[2][0] = state[2][2];
+    tmp[2][1] = state[2][3];
+    tmp[2][2] = state[2][0];
+    tmp[2][3] = state[2][1];
+
+    tmp[3][0] = state[3][3];
+    tmp[3][1] = state[3][0];
+    tmp[3][2] = state[3][1];
+    tmp[3][3] = state[3][2];
+
+    return tmp;
   }
 
-  public static byte[][] mixColumns(byte[][] state) {
-    return null;
+  public static int[][] mixColumns(int[][] state) {
+    int[][] tmp = new int[state.length][state.length];
+
+    tmp[0][0] = (mul2[state[0][0]] ^ mul3[state[0][1]] ^ state[0][2] ^ state[0][3]);
+    tmp[1][0] = (state[1][0] ^ mul2[state[1][1]] ^ mul3[state[1][2]] ^ state[1][3]);
+    tmp[2][0] = (state[2][0] ^ state[2][1] ^ mul2[state[2][2]] ^ mul3[state[2][3]]);
+    tmp[3][0] = (mul3[state[3][0]] ^ state[3][1] ^ state[3][2] ^ mul2[state[3][3]]);
+
+    tmp[0][1] = (mul2[state[0][1]] ^ mul3[state[1][1]] ^ state[2][1] ^ state[3][1]);
+    tmp[1][1] = (state[0][1] ^ mul2[state[1][1]] ^ mul3[state[2][1]] ^ state[3][1]);
+    tmp[2][1] = (state[0][1] ^ state[1][1] ^ mul2[state[2][1]] ^ mul3[state[3][1]]);
+    tmp[3][1] = (mul3[state[0][1]] ^ state[1][1] ^ state[2][1] ^ mul2[state[3][1]]);
+
+    tmp[0][2] = (mul2[state[0][2]] ^ mul3[state[1][2]] ^ state[2][2] ^ state[3][2]);
+    tmp[1][2] = (state[0][2] ^ mul2[state[1][2]] ^ mul3[state[2][2]] ^ state[3][2]);
+    tmp[2][2] = (state[0][2] ^ state[1][2] ^ mul2[state[2][2]] ^ mul3[state[3][2]]);
+    tmp[3][2] = (mul3[state[0][2]] ^ state[1][2] ^ state[2][2] ^ mul2[state[3][2]]);
+
+    tmp[0][3] = (mul2[state[0][3]] ^ mul3[state[1][3]] ^ state[2][3] ^ state[3][3]);
+    tmp[1][3] = (state[0][3] ^ mul2[state[1][3]] ^ mul3[state[2][3]] ^ state[3][3]);
+    tmp[2][3] = (state[0][3] ^ state[1][3] ^ mul2[state[2][3]] ^ mul3[state[3][3]]);
+    tmp[3][3] = (mul3[state[0][3]] ^ state[1][3] ^ state[2][3] ^ mul2[state[3][3]]);
   }
 
-  public static byte[][] subBytes(byte[][] state) {
-    return null;
+  public static int[][] subBytes(int[][] state) {
+    for (int i = 0; i < state.length; i++) {
+      for (int j = 0; j < state[i].length; j++) {
+        int leastSignificantNibble = state[i][j] >> 8;
+        int mostSignificantNibble = state[i][j] << 8;
+        System.out.println("least: " + leastSignificantNibble);
+        System.out.println("most: " + mostSignificantNibble);
+        state[i][j] = sbox[mostSignificantNibble][leastSignificantNibble];
+      }
+    }
+    return state;
   }
 
-  public static int[] rotate(int[] hexState) {
-    int[] tempHexState = new int[hexState.length];
-    tempHexState = copyArray(hexState, tempHexState);
+  public static int[] rotate(int[] state) {
+    int[] tempState = new int[state.length];
+    tempState = copyArray(state, tempState);
 
-    for (int i = 0; i < hexState.length; i++) {
-      int index = (i - 2) % hexState.length;
+    for (int i = 0; i < state.length; i++) {
+      int index = (i - 2) % state.length;
       if (index < 0)
       {
-          index += hexState.length;
+          index += state.length;
       }
 
-      hexState[index] = tempHexState[i];
+      state[index] = tempState[i];
     }
-    return hexState;
+    return state;
   }
 
   public static void main(String[] args) {
-<<<<<<< HEAD
 
         String option = args[0];
         File key_file = new File(args[1]);
@@ -146,17 +197,8 @@ public class AES {
         }
 
         if option == "e" {
-            
+
         }
-    
 
-
-=======
-    int[] hexState = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
-    hexState = rotate(hexState);
-    for (int i = 0; i < hexState.length; i++) {
-      System.out.println(hexState[i]);
-    }
->>>>>>> b7f1bd5b3e1df24142251ded64c8c82acb8abf62
   }
 }
