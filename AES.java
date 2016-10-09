@@ -159,12 +159,11 @@ public class AES {
     tmp[3][3] = (mul3[state[0][3]] ^ state[1][3] ^ state[2][3] ^ mul2[state[3][3]]);
   }
 
-<<<<<<< HEAD
   public static byte[][] subBytes(byte[][] state) {
     for(int i=0; i< state.length; i++) {
 
     }
-=======
+
   public static int[][] subBytes(int[][] state) {
     for (int i = 0; i < state.length; i++) {
       for (int j = 0; j < state[i].length; j++) {
@@ -176,10 +175,11 @@ public class AES {
       }
     }
     return state;
->>>>>>> a795999d0ab2657cc4c7cbd315e96e427d072047
+
   }
 
-  public static int[] rotate(int[] state) {
+  public static int[] rotate(int[] state) 
+  {
     int[] tempState = new int[state.length];
     tempState = copyArray(state, tempState);
 
@@ -195,6 +195,41 @@ public class AES {
     return state;
   }
 
+
+  public static void AES_Encryption(int[] state, int[] round_key, int num_rounds) 
+  {
+
+   
+    for(int i=0; i<num_rounds; i++) {
+        subBytes(state);
+        shiftRows(state);
+        mixColumns(state);
+        addRoundKey(state, round_key, i);
+    }
+
+    //final round encryption
+    subBytes(state);
+    shiftRows(state);
+    addRoundKey(state, round_key, num_rounds)
+
+
+  }
+
+  public static void AES_Decryption(int[] state, int[] round_key, int num_rounds) 
+  {
+
+     for(int i=0; i<num_rounds; i++) {
+        subBytes(state);
+        shiftRows(state);
+        mixColumns(state);
+        addRoundKey(state, round_key, i);
+    }
+
+    //final round decryption
+    
+
+  }
+
   public static void main(String[] args) {
 
 
@@ -204,25 +239,22 @@ public class AES {
         File key_file = new File(args[1]);
         File input_file = new File(args[2]);
 
-<<<<<<< HEAD
-        if (option == "d") {
-            //decrypt
-        }
-=======
+
         if (option.equals("d")) {
->>>>>>> a795999d0ab2657cc4c7cbd315e96e427d072047
 
-        if (option == "e") {
-            //encrypt
         }
 
-<<<<<<< HEAD
+        if (option.equals("e")) {
+
+        }
+        
+
         BufferedReader r = new BufferedReader(new FileReader(args[2]));
         String line = new String();
         
         try {
             line = r.readLine();
-        catch(IOexception e) {
+        }catch(IOexception e) {
             System.out.println("No file");
         }
         
@@ -236,23 +268,15 @@ public class AES {
         }
 
 
-
-    
-=======
-        if (option.equals("e")) {
-
-        }
->>>>>>> a795999d0ab2657cc4c7cbd315e96e427d072047
-
         int[][] newArray = {
           {1,2,3,4},
           {1,2,3,4},
           {1,2,3,4},
           {1,2,3,4}
         };
+        
         System.out.println(shiftRows(newArray));
 
-<<<<<<< HEAD
 
     int[] hexState = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08};
     hexState = rotate(hexState);
@@ -260,7 +284,6 @@ public class AES {
       System.out.println(hexState[i]);
     }
 
-=======
->>>>>>> a795999d0ab2657cc4c7cbd315e96e427d072047
+
   }
 }
