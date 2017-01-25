@@ -1,7 +1,7 @@
-Developers
-Mohammad Ali Siddiqui
-Shreyas Devalapurkar
-Cole Boothman
+###Developers
+* Ali Siddiqui
+* Shreyas Devalapurkar
+* Cole Boothman
 
 Instructions:
 
