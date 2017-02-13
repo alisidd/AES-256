@@ -4,8 +4,8 @@ A Java program that encrypts a text file using the AES-256 algorithm
 
 ###Developers:
 * Ali Siddiqui
-* Shreyas Devalapurkar github.com/shreyasdevalapurkar
-* Cole Boothman github.com/coleboothman
+* Shreyas Devalapurkar - github.com/shreyasdevalapurkar
+* Cole Boothman     -    github.com/coleboothman
 
 ###Instructions:
 
