@@ -1,7 +1,7 @@
 ###Developers:
 * Ali Siddiqui
-* Shreyas Devalapurkar
-* Cole Boothman
+* Shreyas Devalapurkar github.com/shreyasdevalapurkar
+* Cole Boothman github.com/coleboothman
 
 ###Instructions:
 
