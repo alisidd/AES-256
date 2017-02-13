@@ -1,3 +1,7 @@
+#AES-256
+
+A Java program that encrypts a text file using the AES-256 algorithm
+
 ###Developers:
 * Ali Siddiqui
 * Shreyas Devalapurkar github.com/shreyasdevalapurkar
